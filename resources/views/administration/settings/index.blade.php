@@ -39,6 +39,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Default Page to Show</label>
+                    <select name="default_page" class="form-control">
+                        <option value="">Please select a page</option>
+                        @foreach($navigation as $nav)
+                            <option value="{{ $nav->id }}" {{ $settings['default_page'] == $nav->id ? 'selected' : '' }}>
+                                @if($nav->title)
+                                    {{ $nav->title }}
+                                @else
+                                    {{ $nav->document->title }}
+                                @endif
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">
                             <input type="submit" class="btn btn-success btn-block" value="Save Settings">

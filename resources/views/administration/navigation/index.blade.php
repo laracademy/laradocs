@@ -25,9 +25,7 @@
                 {{ $nav_item['title'] }}
                 <span class="pull-right">
                     <a href="{{ route('administration.navigation.destroy', $nav_item['id']) }}" onclick="return confirm('This will also remove any linked documents, are you sure?');"><i class="fa fa-trash"></i></a>
-                    {{--
-                        <a href="{{ route('administration.navigation.rank.up', $nav_item['id']) }}"><i class="fa fa-arrow-up"></i></a> | <a href="#"><i class="fa fa-arrow-down"></i></a>
-                    --}}
+
                 </span>
             </div>
             <!-- documents -->
@@ -35,10 +33,9 @@
                 <div class="list-group-item indent text-bold">
                     {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}
                     <span class="pull-right">
+                        <a href="{{ route('administration.documentation.edit', $sub_item->document) }}"><i class="fa fa-file-text"></i></a>
+                        &nbsp; | &nbsp;
                         <a href="{{ route('administration.navigation.destroy', $sub_item['id']) }}"><i class="fa fa-trash text-danger"></i></a>
-                        {{--
-                        <a href=""><i class="fa fa-arrow-up text-primary"></i></a> | <a href=""><i class="fa fa-arrow-down text-primary"></i></a>
-                        --}}
                     </span>
                 </div>
             @endforeach

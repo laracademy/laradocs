@@ -25,6 +25,7 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], fu
         Route::post('update/{version}')->uses('VersionController@update')->name('administration.version.update');
 
         // destroy
+        Route::get('destroy/{version}')->uses('VersionController@destroy')->name('administration.version.destroy');
     });
 
     // Documentation
@@ -89,6 +90,10 @@ Route::group(['prefix' => '', 'namespace' => 'Front'], function(){
     Route::get('')->uses('DocumentController@index')->name('home');
     Route::get('{version_slug}/{document_slug}')->uses('DocumentController@view')->name('document.view');
 });
+
+
+
+
 
 
 // Testing

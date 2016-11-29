@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Version;
+use \App\Models\Setting;
+use \App\Models\Navigation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,15 +17,20 @@ class DocumentController extends Controller
      */
     public function __construct()
     {
+        // share all of the active versions on the front page
+        view()->share('active_versions', Version::getActive()->get());
+
+        // todo; organize below
+
         // share the navigation between all functions
         view()->share('navigation', $this->buildNavigation());
 
         // get the version to display
-        view()->share('version', \App\Models\Version::where('is_default', 1)->first());
+        view()->share('version', \App\Models\Version::getDefaultVersion()->first());
 
         // share the theme across all functions
         $theme = '';
-        $themeSetting = \App\Models\Setting::getSetting('theme');
+        $themeSetting = Setting::getSetting('theme');
         if($themeSetting) {
             $theme = $themeSetting;
         }
@@ -30,7 +38,7 @@ class DocumentController extends Controller
         view()->share('theme', $theme);
 
         // share the site name across all functions
-        view()->share('site_name', \App\Models\Setting::getSetting('site_name'));
+        view()->share('site_name', Setting::getSetting('site_name'));
     }
 
     /**
@@ -40,6 +48,16 @@ class DocumentController extends Controller
      */
     public function index()
     {
+        // check to see if we have a default page to start on
+        $defaultPage = Setting::getSetting('default_page');
+
+        $navigation = Navigation::where('id', intval($defaultPage))->first();
+        if($navigation) {
+            if($navigation->document) {
+                return redirect()->route('document.view', [$navigation->version->slug, $navigation->document->slug]);
+            }
+        }
+
         return view('front.start');
     }
 
@@ -54,7 +72,11 @@ class DocumentController extends Controller
     public function buildNavigation()
     {
         // for now
-        $version = \App\Models\Version::where('is_default', 1)->first();
+        $version = \App\Models\Version::getDefaultVersion()->first();
+
+        if(! $version) {
+            return null;
+        }
 
         return $version->navigation()->where('is_heading', true)->orderBy('sorting')->get()->map(function($item, $index) {
             return [

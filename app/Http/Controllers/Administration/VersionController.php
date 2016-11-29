@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Models\Version;
+use App\Models\Document;
+use App\Models\Navigation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -67,5 +69,22 @@ class VersionController extends Controller
         $version->setDefault($request->input('is_default'));
 
         return redirect()->route('administration')->with('success', ['The Version was updated succesfully.']);
+    }
+
+    /**
+     * handles removing the version and all associated items
+     */
+    public function destroy(\App\Models\Version $version)
+    {
+        // remove version's navigation
+        Navigation::where('version_id', $version->id)->delete();
+
+        // remove version's documents
+        Document::where('version_id', $version->id)->delete();
+
+        // remove version
+        $version->delete();
+
+        return redirect()->route('administration')->with('success', ['The Version was removed succesfully.']);
     }
 }

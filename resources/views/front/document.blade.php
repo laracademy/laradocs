@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.front.app')
 
 @section('content')
     {!! $document->html !!}

@@ -46,7 +46,7 @@
                                 <td>
                                     <div class="btn-group btn-group-justified">
                                         <a href="{{ route('administration.documentation.destroy', $document) }}" class="btn btn-danger" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
-                                        <a href="{{ route('administration.documentation.edit', $document) }}" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                                        <a href="{{ route('administration.documentation.edit', $document) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
                                     </div>
                                 </td>
                             </tr>

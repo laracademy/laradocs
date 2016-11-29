@@ -73,7 +73,7 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-justified">
-                                    <a href="#" class="btn btn-danger" onclick="return false;"><i class="fa fa-trash"></i> Delete</a>
+                                    <a href="{{ route('administration.version.destroy', $version) }}" class="btn btn-danger" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>

@@ -55,8 +55,30 @@ class Version extends Model {
         return $this->hasMany(\App\Models\Document::class, 'version_id', 'id');
     }
 
+    // query scopes
+
+    /**
+     * returns the default (active) version
+     */
+    public function scopeGetDefaultVersion($query)
+    {
+        return $query->getActive()->where('is_default', true);
+    }
+
+    /**
+     * returns only the active versions
+     */
+    public function scopeGetActive($query)
+    {
+        return $query->where('active', true);
+    }
+
     // helper
 
+    /**
+     * sets the default of the current version while
+     * removing the flag from all the others
+     */
     public function setDefault($isDefault)
     {
         // cast
