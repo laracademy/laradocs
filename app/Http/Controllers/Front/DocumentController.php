@@ -26,6 +26,7 @@ class DocumentController extends Controller
         view()->share('navigation', $this->buildNavigation());
 
         // get the version to display
+        // @TODO this will change
         view()->share('version', \App\Models\Version::getDefaultVersion()->first());
 
         // share the theme across all functions
@@ -48,14 +49,11 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        // check to see if we have a default page to start on
-        $defaultPage = Setting::getSetting('default_page');
+        // check to see if the version has an assigned default page
+        $currentVersion = view()->shared('version');
 
-        $navigation = Navigation::where('id', intval($defaultPage))->first();
-        if($navigation) {
-            if($navigation->document) {
-                return redirect()->route('document.view', [$navigation->version->slug, $navigation->document->slug]);
-            }
+        if(intval($currentVersion->default_document_id) > 0) {
+            return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
         }
 
         return view('front.start');

@@ -7,6 +7,22 @@
 
 <div class="form-group">
     <label>
+        Default Display Page
+    </label>
+    <select name="default_document_id" class="form-control">
+        <option value="">Please select a default document to display</option>
+        @if(isset($documents))
+            @foreach($documents as $id => $title)
+                <option value="{{ $id }}" {{ $id == $version->default_document_id ? 'selected' : '' }}>
+                    {{ $title }}
+                </option>
+            @endforeach
+        @endif
+    </select>
+</div>
+
+<div class="form-group">
+    <label>
         Is Default
     </label>
     <select name="is_default" id="" class="form-control">

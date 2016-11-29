@@ -51,8 +51,12 @@ class VersionController extends Controller
      */
     public function edit(\App\Models\Version $version)
     {
+        // default document to choose from
+        $documents = $version->documents->sortBy('title')->pluck('title', 'id');
+
         return view('administration.version.edit', [
-            'version' => $version,
+            'version'    => $version,
+            'documents'  => $documents,
         ]);
     }
 
@@ -61,9 +65,10 @@ class VersionController extends Controller
      */
     public function update(Request $request, \App\Models\Version $version)
     {
-        $version->tag    = $request->input('tag');
-        $version->slug   = str_slug($version->tag);
-        $version->active = $request->input('active');
+        $version->default_document_id = intval($request->input('default_document_id')) != 0 ? intval($request->input('default_document_id')) : null;
+        $version->tag                 = $request->input('tag');
+        $version->slug                = str_slug($version->tag);
+        $version->active              = $request->input('active');
         $version->save();
 
         $version->setDefault($request->input('is_default'));

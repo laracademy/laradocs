@@ -88,6 +88,9 @@ Route::group(['prefix' => 'auth'], function(){
 
 Route::group(['prefix' => '', 'namespace' => 'Front'], function(){
     Route::get('')->uses('DocumentController@index')->name('home');
+
+    Route::get('{version_slug}')->uses('DocumentController@index')->name('document.view');
+
     Route::get('{version_slug}/{document_slug}')->uses('DocumentController@view')->name('document.view');
 });
 

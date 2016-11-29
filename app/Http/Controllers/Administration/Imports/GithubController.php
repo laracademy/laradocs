@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administration\Imports;
 
 use Parsedown;
 use GuzzleHttp\Client;
+use App\Models\Setting;
 use App\Models\Version;
 use App\Models\Document;
 use App\Models\Navigation;
@@ -36,10 +37,20 @@ class GithubController extends Controller
 
     public function store(Request $request)
     {
+        // rules
+        $rules = [
+            'version_id'        => 'required',
+            'repository_name'   => 'required',
+            'repository_owner'  => 'required',
+            'repository_branch' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
         // @TODO: should probably fire a job to handle this in queues
 
-        $github_username = \App\Models\Setting::getSetting('github_username');
-        $github_token    = \App\Models\Setting::getSetting('github_token');
+        $github_username = trim(Setting::getSetting('github_username'));
+        $github_token    = trim(Setting::getSetting('github_token'));
         $client          = new Client;
         $version         = Version::find($request->input('version_id'));
 

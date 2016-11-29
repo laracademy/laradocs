@@ -17,6 +17,7 @@ class CreateTableVersions extends Migration
             $table->increments('id');
             $table->string('tag');
             $table->string('slug');
+            $table->integer('default_document_id')->nullable();
             $table->boolean('is_default')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();

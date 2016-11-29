@@ -22,6 +22,7 @@ class Version extends Model {
     protected $fillable = [
         'tag',
         'slug',
+        'default_document_id',
         'is_default',
         'active',
     ];
@@ -53,6 +54,11 @@ class Version extends Model {
     public function documents()
     {
         return $this->hasMany(\App\Models\Document::class, 'version_id', 'id');
+    }
+
+    public function defaultDocument()
+    {
+        return $this->hasOne(\App\Models\Document::class, 'id', 'default_document_id');
     }
 
     // query scopes

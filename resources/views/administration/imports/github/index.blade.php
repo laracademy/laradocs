@@ -11,7 +11,7 @@
             </h3>
         </div>
         <div class="panel-body">
-            <form id="githubVue" action="{{ route('administration.import.github.store') }}" method="POST" v-cloak>
+            <form id="githubVue" action="{{ route('administration.import.github.store') }}" method="POST" autocomplete="off" v-cloak>
                 {!! csrf_field() !!}
 
                 <div class="form-group">
