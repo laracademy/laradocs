@@ -17,19 +17,23 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th width="5%">
-                            Default
-                        </th>
-                        <th width="5%">
-                            Active
-                        </th>
-                        <th width="25%">
-                            Version Name
-                        </th>
+
                         <th width="20%">
+                            Name
+                        </th>
+                        <th width="10%">
+                            Is Default
+                        </th>
+                        <th width="10%">
+                            Is Active
+                        </th>
+                        <th width="10%">
+                            Has Start Page
+                        </th>
+                        <th width="15%">
                             Documents
                         </th>
-                        <th width="20%">
+                        <th width="15%">
                             Navigation
                         </th>
                         <th>
@@ -40,35 +44,44 @@
                 <tbody>
                     @foreach($versions as $version)
                         <tr>
-                            <td class="text-center">
-                                @if($version->is_default)
-                                    <i class="fa fa-check text-success fa-2x"></i>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                @if($version->active)
-                                    <i class="fa fa-circle text-success fa-2x"></i>
-                                @else
-                                    <i class="fa fa-circle text-danger fa-2x"></i>
-                                @endif
-                            </td>
                             <td>
                                 <h4>
                                     <a href="{{ route('administration.version.edit', $version) }}" title="Edit {{ $version->tag }}" alt="Edit {{ $version->tag }}">{{ $version->tag }}</a>
                                 </h4>
                             </td>
+                            <td class="text-center">
+                                @if($version->is_default)
+                                    <i class="fa fa-check text-success fa-2x"></i>
+                                @else
+                                    <i class="fa fa-times text-danger fa-2x"></i>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if($version->default_document_id != 0)
+                                    <i class="fa fa-check text-success fa-2x"></i>
+                                @else
+                                    <i class="fa fa-times text-danger fa-2x"></i>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if($version->active)
+                                    <i class="fa fa-check text-success fa-2x"></i>
+                                @else
+                                    <i class="fa fa-times text-danger fa-2x"></i>
+                                @endif
+                            </td>
                             <td>
-                                <h4 class="text-right">
-                                    <a href="{{ route('administration.documentation', $version) }}" title="View documents for {{ $version->tag }}" alt="View documents for {{ $version->tag }}">
-                                        <span class="label label-default">
-                                            {{ $version->documents()->count() }}
-                                        </span>
+                                <h4>
+                                    <a href="{{ route('administration.documentation', $version) }}">
+                                        Edit Documents ({{ $version->documents()->count() }})
                                     </a>
                                 </h4>
                             </td>
                             <td>
                                 <h4>
-                                    <a href="{{ route('administration.navigation', $version) }}">View</a>
+                                    <a href="{{ route('administration.navigation', $version) }}">
+                                        Edit Navigation
+                                    </a>
                                 </h4>
                             </td>
                             <td>

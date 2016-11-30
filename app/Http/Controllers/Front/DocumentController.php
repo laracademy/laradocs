@@ -52,8 +52,10 @@ class DocumentController extends Controller
         // check to see if the version has an assigned default page
         $currentVersion = view()->shared('version');
 
-        if(intval($currentVersion->default_document_id) > 0) {
-            return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
+        if($currentVersion) {
+            if(intval($currentVersion->default_document_id) > 0) {
+                return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
+            }
         }
 
         return view('front.start');

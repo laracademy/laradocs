@@ -10,12 +10,16 @@
     <!-- Styles -->
     <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 
     <style>
         .navbar { border-radius: 0px; }
 
         .indent { padding-left: 32px; }
         .text-bold{ font-weight: bold; }
+        .CodeMirror {
+            height: 500px;
+        }
     </style>
 </head>
 <body>
@@ -34,9 +38,9 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 @if(Auth::check())
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -70,7 +74,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 @yield('content')
             </div>
         </div>
@@ -80,7 +84,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.8/vue.min.js"></script>
     <script src="//unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
-    @stack('scripts')
+    @stack('script')
 </body>
 </html>

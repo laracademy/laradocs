@@ -20,6 +20,7 @@
 
         .indent { padding-left: 32px; }
         .text-bold{ font-weight: bold; }
+        .list-group-item{ border-radius: 0px; }
     </style>
 </head>
 <body>
@@ -36,12 +37,14 @@
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                {{--
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+                --}}
 
                 <ul class="nav navbar-nav navbar-right">
                     @include('layouts.front.partials.versions')
@@ -55,12 +58,12 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
-              @include('layouts.front.partials.left-navigation')
+            <div class="col-sm-2">
+                @include('layouts.front.partials.left-navigation')
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-10">
                 @yield('content')
             </div>
         </div>

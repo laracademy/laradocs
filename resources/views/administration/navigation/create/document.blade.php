@@ -9,9 +9,10 @@
         </div>
         <div class="panel-body">
 
-            <form action="{{ route('administration.navigation.store.document') }}" method="POST" autocomplete="off">
+            <form id="frmDocument" action="{{ route('administration.navigation.store.document') }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
                 <input type="hidden" name="navigation_id" value="{{ $navigation->id }}">
+                <input type="hidden" name="add_redirect" id="add_redirect" value="0">
 
                 <div class="form-group">
                     <label><i class="fa fa-asterisk text-danger"></i> Document</label>
@@ -31,9 +32,21 @@
                 <div>
                     <a href="{{ route('administration.navigation', $navigation->version) }}" class="btn btn-info">Cancel</a>
                     <input type="submit" class="btn btn-success" value="Add Document to Navigation">
+                    <div class="pull-right">
+                        <a href="#" class="btn btn-primary" onclick="addAnotherDocument(); return false;">Add Document and Another One</a>
+                    </div>
                 </div>
             </form>
 
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        function addAnotherDocument() {
+            $("#add_redirect").val('1');
+            $("#frmDocument").submit();
+        }
+    </script>
+@endpush

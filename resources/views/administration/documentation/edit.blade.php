@@ -23,3 +23,9 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        var simplemde = new SimpleMDE({ element: $("#markdown")[0] });
+    </script>
+@endpush

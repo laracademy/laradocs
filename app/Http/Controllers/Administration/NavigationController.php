@@ -94,6 +94,10 @@ class NavigationController extends Controller
 
         $navigation->save();
 
+        if(intval($request->input('add_redirect')) == 1) {
+            return redirect()->route('administration.navigation.create.document', $parentNavigation->id)->with('success', ['The document has been added to the navigation successfully.']);
+        }
+
         return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The document has been added to the navigation successfully.']);
     }
 

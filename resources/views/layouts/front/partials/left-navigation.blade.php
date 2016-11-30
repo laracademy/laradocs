@@ -2,6 +2,7 @@
     <h4>
         Navigation
     </h4>
+
     <div class="list-group">
         @foreach($navigation as $nav_item)
             @if($nav_item['is_heading'])

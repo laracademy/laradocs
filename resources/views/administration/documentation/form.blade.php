@@ -9,5 +9,5 @@
     <label>
         Mark Down
     </label>
-    <textarea name="markdown" cols="30" rows="10" class="form-control">{{ old('markdown', $document->markdown) }}</textarea>
+    <textarea name="markdown" id="markdown" cols="30" rows="10" class="form-control">{{ old('markdown', $document->markdown) }}</textarea>
 </div>

@@ -58,7 +58,7 @@
 
 @endsection
 
-@push('scripts')
+@push('script')
     <script>
         new Vue({
             el: '#githubVue',
