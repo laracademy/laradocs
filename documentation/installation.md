@@ -25,7 +25,7 @@ git clone https://github.com/tutelagesystems/laradocs.git
 
 ### Via Zipfile
 
-You can download any of the releases from the (Releases)[https://github.com/tutelagesystems/laradocs/releases] tab on Github.
+You can download any of the releases from the [Releases](https://github.com/tutelagesystems/laradocs/releases) tab on Github.
 
 Extract the entire contents of this directory into the folder of your choice.
 
