@@ -2,7 +2,7 @@
 
 ## Server Requirements
 
-Laradocs has a few system requirements. All of these requirements are satisfied if you are already running **Laravel 5.3**.
+Laradocs like Laravel has a few system requirements, and these are all because of the framework itself. If you can run **Laravel 5.3** then you can run Laradocs. Please ensure that your environment meets the following:
 
 * PHP >= 5.6.4
 * OpenSSL PHP Extension
@@ -10,41 +10,27 @@ Laradocs has a few system requirements. All of these requirements are satisfied 
 * Mbstring PHP Extension
 * Tokenizer PHP Extension
 * XML PHP Extension
+* Composer
 
 ## Installing Laradocs
 
-Laradocs utilitizes [Composer](https://getcomposer.org/) to manage its dependencies. So, before using Laradocs, make sure you have Composer installed on your machine.
+Installing Laradocs is extremely simple and you can do it one of two ways. Please pick the method that best fits your needs.
 
-### Via Github via Clone
+### Github
 
-First you will need to have [Git](http://https://git-scm.com/) installed on your machine. You will need to clone the repository with the following command:
+To install Laradocs from Github you will need to utilize [Git](http://https://git-scm.com/) to pull down the project with the clone command `git clone https://github.com/tutelagesystems/laradocs.git`
 
-```
-git clone https://github.com/tutelagesystems/laradocs.git
-```
+### Zip File
 
-### Via Zipfile
+With each release Laradocs the code will be tagged with a specific version. You can grab the latest version on the [Releases](https://github.com/tutelagesystems/laradocs/releases) tab.
 
-You can download any of the releases from the [Releases](https://github.com/tutelagesystems/laradocs/releases) tab on Github.
+You will need to extract all of the files within the zip into a directory then install the dependencies with **Composer**
 
-Extract the entire contents of this directory into the folder of your choice.
+## Installing Dependencies
 
-### Installation
+Laradocs like Laravel uses multiple dependencies to do the job. Once you have install Laradocs you will need to run [Composer](https://getcomposer.org/) to install these dependencies. You can run `composer install` to get the process started.
 
-Once all files have been copied in you will need run `Composer` to install of the dependencies. You can do this with `composer install`
-
-After composer has finished you will want to create a `.env` file. You can do this easily by copying the `.env.example` and renaming it to `.env`
-
-Next you will want to use `php artisan key:generate` to generate a new key for the project.
-
-Finally you will need to edit the `.env` file and provide the correct database credentials for your system.
-
-
-## Configuration
-
-All of the configuration files for Laradocs are stored in the `config` directory.
-
-### Directory Permissions
+## Directory Permissions
 
 After installing Laradocs, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your webserver. This is a Laravel requirement and it will not run if they are not.
 
