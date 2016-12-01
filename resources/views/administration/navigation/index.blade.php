@@ -24,8 +24,14 @@
             <div class="list-group-item active">
                 {{ $nav_item['title'] }}
                 <span class="pull-right">
-                    <a href="{{ route('administration.navigation.destroy', $nav_item['id']) }}" onclick="return confirm('This will also remove any linked documents, are you sure?');"><i class="fa fa-trash"></i></a>
-
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{ route('administration.navigation.edit.section', $nav_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil text-info"></i></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('administration.navigation.destroy', $nav_item['id']) }}" onclick="return confirm('This will also remove any linked documents, are you sure?');"><i class="fa fa-trash"></i></a>
+                        </li>
+                    </ul>
                 </span>
             </div>
             <!-- documents -->
@@ -33,9 +39,17 @@
                 <div class="list-group-item indent text-bold">
                     {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}
                     <span class="pull-right">
-                        <a href="{{ route('administration.documentation.edit', $sub_item->document) }}"><i class="fa fa-file-text"></i></a>
-                        &nbsp; | &nbsp;
-                        <a href="{{ route('administration.navigation.destroy', $sub_item['id']) }}"><i class="fa fa-trash text-danger"></i></a>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ route('administration.navigation.edit.document', $sub_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil text-info"></i></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('administration.documentation.edit', $sub_item->document) }}" title="Edit Document"><i class="fa fa-file-text"></i></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('administration.navigation.destroy', $sub_item['id']) }}" title="Delete Navigation Item"><i class="fa fa-trash text-danger"></i></a>
+                            </li>
+                        </ul>
                     </span>
                 </div>
             @endforeach

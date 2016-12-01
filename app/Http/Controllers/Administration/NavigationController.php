@@ -62,6 +62,16 @@ class NavigationController extends Controller
     }
 
     /**
+     * handles editing an existing navigation section
+     */
+    public function editSection(\App\Models\Navigation $navigation)
+    {
+        return view('administration.navigation.edit.section', [
+            'navigation' => $navigation,
+        ]);
+    }
+
+    /**
      * handles showing the form to add an existing document
      */
     public function createDocument(\App\Models\Navigation $navigation)
@@ -101,6 +111,33 @@ class NavigationController extends Controller
         return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The document has been added to the navigation successfully.']);
     }
 
+    /**
+     * handles editing an existing navigation document link
+     */
+    public function editDocument(\App\Models\Navigation $navigation)
+    {
+        return view('administration.navigation.edit.document', [
+            'navigation' => $navigation,
+            'documents'  => $navigation->version->documents()->orderBy('title')->get(),
+        ]);
+    }
+
+    /**
+     * handles updating the navigation item
+     */
+    public function updateNavigation(Request $request)
+    {
+        $navigation = Navigation::find($request->input('id'));
+
+        $navigation->document_id = $request->input('document_id');
+        if($request->has('title')) {
+            $navigation->title = $request->input('title');
+        }
+        $navigation->save();
+
+        return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The navigation item has been updated successfully.']);
+    }
+
     public function destroy(\App\Models\Navigation $navigation)
     {
         // remove sub navigation
@@ -115,22 +152,6 @@ class NavigationController extends Controller
 
         // redirect back
         return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['Your Navigation item was deleted successfully.']);
-    }
-
-    public function rankUp(\App\Models\Navigation $navigation)
-    {
-        // find navigation above
-        $aboveNavigationItem = Navigation::where('sorting', '<', $navigation->sorting)->orderBy('sorting', 'desc')->first();
-
-        if($aboveNavigationItem) {
-            // take away one
-            $navigation->sorting = ($aboveNavigationItem->sorting - 1);
-            $navigation->save();
-        }
-
-        // if we are here we cannot move this item up
-        // because it is already first
-        return back();
     }
 
 }

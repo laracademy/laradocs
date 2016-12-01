@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Setting;
 use App\Models\Version;
-use \App\Models\Setting;
-use \App\Models\Navigation;
+use App\Models\Document;
+use App\Models\Navigation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -53,7 +54,7 @@ class DocumentController extends Controller
         $currentVersion = view()->shared('version');
 
         if($currentVersion) {
-            if(intval($currentVersion->default_document_id) > 0) {
+            if(Document::where('id', intval($currentVersion->default_document_id))->first()) {
                 return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
             }
         }
