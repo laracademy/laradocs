@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>
-        Version Title
+        Title
     </label>
     <input type="text" class="form-control" name="tag" value="{{ old('tag', $version->tag) }}">
 </div>
