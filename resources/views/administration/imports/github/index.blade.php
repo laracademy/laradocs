@@ -25,7 +25,7 @@
 
                 <div class="form-group">
                     <label>Repository Name <i class="fa fa-asterisk text-danger"></i></label>
-                    <input type="text" class="form-control" name="repository_name" placeholder="laradoc-docs">
+                    <input type="text" class="form-control" name="repository_name" placeholder="laradocs">
                 </div>
 
                 <div class="form-group">
@@ -40,7 +40,7 @@
 
                 <div class="form-group">
                     <label>Folder in Repository</label>
-                    <input type="text" class="form-control" name="repository_folder" placeholder="">
+                    <input type="text" class="form-control" name="repository_folder" placeholder="documentation">
                 </div>
 
                 <div class="form-group">
