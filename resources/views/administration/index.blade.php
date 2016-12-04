@@ -57,14 +57,14 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if($version->default_document_id != 0)
+                                @if($version->active)
                                     <i class="fa fa-check text-success fa-2x"></i>
                                 @else
                                     <i class="fa fa-times text-danger fa-2x"></i>
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if($version->active)
+                                @if($version->default_document_id != 0)
                                     <i class="fa fa-check text-success fa-2x"></i>
                                 @else
                                     <i class="fa fa-times text-danger fa-2x"></i>
