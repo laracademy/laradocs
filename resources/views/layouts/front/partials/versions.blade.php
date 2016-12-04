@@ -15,7 +15,7 @@
             <ul class="dropdown-menu">
                 @foreach($active_versions as $version)
                     <li>
-                        <a href="#">{{ $version->tag }}</a>
+                        <a href="{{ route('document.set', $version->slug )}}">{{ $version->tag }}</a>
                     </li>
                 @endforeach
             </ul>

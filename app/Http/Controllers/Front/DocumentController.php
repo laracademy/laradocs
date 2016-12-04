@@ -24,11 +24,10 @@ class DocumentController extends Controller
         // todo; organize below
 
         // share the navigation between all functions
-        view()->share('navigation', $this->buildNavigation());
+        //view()->share('navigation', $this->buildNavigation());
 
         // get the version to display
-        // @TODO this will change
-        view()->share('version', \App\Models\Version::getDefaultVersion()->first());
+        view()->share('version', $this->getVersion());
 
         // share the theme across all functions
         $theme = '';
@@ -50,35 +49,72 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        // check to see if the version has an assigned default page
-        $currentVersion = view()->shared('version');
+        // Get current version that has been either assigned
+        // or is active and default
+        $currentVersion = $this->getVersion();
 
+        // Build the navigation for the "current" version
+        $navigation = $this->buildNavigation($currentVersion);
+
+        // Check to see if the current version has a default starting page
         if($currentVersion) {
             if(Document::where('id', intval($currentVersion->default_document_id))->first()) {
+
+                // Redirect to that default starting page
                 return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
             }
         }
 
-        return view('front.start');
+        return view('front.start', [
+            'navigation' => $navigation
+        ]);
     }
 
     public function view($version_slug, $document_slug)
     {
-        $version = \App\Models\Version::where('slug', str_slug($version_slug))->first();
+        $version = Version::where('slug', str_slug($version_slug))->first();
         $document = \App\Models\Document::where('version_id', $version->id)->where('slug', str_slug($document_slug))->first();
+        // Build the navigation for the "current" version
+        $navigation = $this->buildNavigation($version);
 
-        return view('front.document', compact('version', 'document'));
+        return view('front.document', compact('version', 'document', 'navigation'));
     }
 
-    public function buildNavigation()
-    {
-        // for now
-        $version = \App\Models\Version::getDefaultVersion()->first();
 
-        if(! $version) {
-            return null;
+
+    /**
+     * return selected version, otherwise default version
+     * from database
+     */
+    public function getVersion()
+    {
+        return session()->get('version', Version::getDefaultVersion()->first());
+    }
+
+    /**
+     * sets the version
+     */
+    public function setVersion($slug)
+    {
+        $version = Version::getActive()->where('slug', str_slug($slug))->first();
+
+        if($version)
+        {
+            session()->set('version', $version);
+        }
+        else
+        {
+            session()->set('version', Version::getDefaultVersion()->first());
         }
 
+        return redirect()->route('home');
+    }
+
+    /**
+     * builds navigation for left side
+     */
+    public function buildNavigation($version)
+    {
         return $version->navigation()->where('is_heading', true)->orderBy('sorting')->get()->map(function($item, $index) {
             return [
                 'title' => $item->title,
