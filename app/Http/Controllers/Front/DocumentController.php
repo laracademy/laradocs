@@ -27,7 +27,7 @@ class DocumentController extends Controller
         //view()->share('navigation', $this->buildNavigation());
 
         // get the version to display
-        view()->share('version', $this->getVersion());
+        //view()->share('version', $this->getVersion());
 
         // share the theme across all functions
         $theme = '';
@@ -51,17 +51,17 @@ class DocumentController extends Controller
     {
         // Get current version that has been either assigned
         // or is active and default
-        $currentVersion = $this->getVersion();
+        $version = $this->getVersion();
 
         // Build the navigation for the "current" version
-        $navigation = $this->buildNavigation($currentVersion);
+        $navigation = $this->buildNavigation($version);
 
         // Check to see if the current version has a default starting page
-        if($currentVersion) {
-            if(Document::where('id', intval($currentVersion->default_document_id))->first()) {
+        if($version) {
+            if(Document::where('id', intval($version->default_document_id))->first()) {
 
                 // Redirect to that default starting page
-                return redirect()->route('document.view', [$currentVersion->slug, $currentVersion->defaultDocument->slug]);
+                return redirect()->route('document.view', [$version->slug, $version->defaultDocument->slug]);
             }
         }
 
@@ -88,7 +88,17 @@ class DocumentController extends Controller
      */
     public function getVersion()
     {
-        return session()->get('version', Version::getDefaultVersion()->first());
+        // Grab version from Session
+        $version = session()->get('version', Version::getDefaultVersion()->first());
+
+        // Check to see if version is still correct
+        $version = Version::where('id', $version->id)->first();
+        if(! $version) {
+            $version = Version::getDefaultVersion()->first();
+            $this->setVersion($version->slug);
+        }
+
+        return $version;
     }
 
     /**
