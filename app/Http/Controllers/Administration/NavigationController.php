@@ -154,4 +154,42 @@ class NavigationController extends Controller
         return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['Your Navigation item was deleted successfully.']);
     }
 
+    public function rankDown(\App\Models\Navigation $navigation)
+    {
+
+        $subNavigation = Navigation::where('parent_id', $navigation->parent_id)->select('id', 'sorting')->orderBy('sorting')->get()->toArray();
+        $indexToMove = collect($subNavigation)->where('id', $navigation->id)->keys()->pop();
+
+        $item = $subNavigation[ $indexToMove ];
+        $subNavigation[ $indexToMove ] = $subNavigation[ $indexToMove + 1 ];
+        $subNavigation[ $indexToMove + 1 ] = $item;
+
+        collect($subNavigation)->each(function($item, $key) {
+            $navigation = Navigation::where('id', $item['id'])->first();
+            $navigation->sorting = $key * 10;
+            $navigation->save();
+        });
+
+        return redirect()->route('administration.navigation', $navigation->version_id);
+    }
+
+    public function rankUp(\App\Models\Navigation $navigation)
+    {
+
+        $subNavigation = Navigation::where('parent_id', $navigation->parent_id)->select('id', 'sorting')->orderBy('sorting')->get()->toArray();
+        $indexToMove = collect($subNavigation)->where('id', $navigation->id)->keys()->pop();
+
+        $item = $subNavigation[ $indexToMove ];
+        $subNavigation[ $indexToMove ] = $subNavigation[ $indexToMove - 1 ];
+        $subNavigation[ $indexToMove - 1 ] = $item;
+
+        collect($subNavigation)->each(function($item, $key) {
+            $navigation = Navigation::where('id', $item['id'])->first();
+            $navigation->sorting = $key * 10;
+            $navigation->save();
+        });
+
+        return redirect()->route('administration.navigation', $navigation->version_id);
+    }
+
 }

@@ -64,6 +64,7 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], fu
         Route::get('destroy/{navigation}')->uses('NavigationController@destroy')->name('administration.navigation.destroy');
 
         Route::get('rank/up/{navigation}')->uses('NavigationController@rankUp')->name('administration.navigation.rank.up');
+        Route::get('rank/down/{navigation}')->uses('NavigationController@rankDown')->name('administration.navigation.rank.down');
 
         Route::get('/{version}')->uses('NavigationController@index')->name('administration.navigation');
     });

@@ -22,7 +22,24 @@
 
         @foreach($navigation as $nav_item)
             <div class="list-group-item active">
-                {{ $nav_item['title'] }}
+                <span class="pull-left">
+                    <ul class="list-inline">
+                        @if(!$loop->first)
+                            <li>
+                            <a href="{{ route('administration.navigation.rank.up', $nav_item['id']) }}"><i class="fa fa-arrow-up"></i></a>
+                            </li>
+                        @endif
+                        @if(!$loop->last)
+                            <li>
+                                <a href="{{ route('administration.navigation.rank.down', $nav_item['id']) }}"><i class="fa fa-arrow-down"></i></a>
+                            </li>
+                        @endif
+                        <li>
+                            {{ $nav_item['title'] }}
+                        </li>
+                    </ul>
+                </span>
+
                 <span class="pull-right">
                     <ul class="list-inline">
                         <li>
@@ -33,11 +50,31 @@
                         </li>
                     </ul>
                 </span>
+
+                <span class="clearfix"></span>
             </div>
             <!-- documents -->
             @foreach($nav_item['sub_navigation'] as $sub_item)
                 <div class="list-group-item indent text-bold">
-                    {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}
+
+                    <span class="pull-left">
+                        <ul class="list-inline">
+                            @if(!$loop->first)
+                                <li>
+                                    <a href="{{ route('administration.navigation.rank.up', $sub_item['id']) }}"><i class="fa fa-arrow-up"></i></a>
+                                </li>
+                            @endif
+                            @if(!$loop->last)
+                                <li>
+                                    <a href="{{ route('administration.navigation.rank.down', $sub_item['id']) }}"><i class="fa fa-arrow-down"></i></a>
+                                </li>
+                            @endif
+                            <li>
+                                {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}
+                            </li>
+                        </ul>
+                    </span>
+
                     <span class="pull-right">
                         <ul class="list-inline">
                             <li>
@@ -51,6 +88,8 @@
                             </li>
                         </ul>
                     </span>
+
+                    <span class="clearfix"></span>
                 </div>
             @endforeach
             <div class="list-group-item indent">
