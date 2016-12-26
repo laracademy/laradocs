@@ -27,7 +27,7 @@ class DocumentController extends Controller
         //view()->share('navigation', $this->buildNavigation());
 
         // get the version to display
-        //view()->share('version', $this->getVersion());
+        view()->share('version', $this->getVersion());
 
         // share the theme across all functions
         $theme = '';
@@ -91,11 +91,17 @@ class DocumentController extends Controller
         // Grab version from Session
         $version = session()->get('version', Version::getDefaultVersion()->first());
 
-        // Check to see if version is still correct
-        $version = Version::where('id', $version->id)->first();
-        if(! $version) {
-            $version = Version::getDefaultVersion()->first();
-            $this->setVersion($version->slug);
+        if($version)
+        {
+            // we have this check here in case the version found in the session
+            // was removed from the backend by an administrator
+            $version = Version::where('id', $version->id)->first();
+            if(! $version) {
+                $version = Version::getDefaultVersion()->first();
+
+                // store the version into our session
+                $this->setVersion($version->slug);
+            }
         }
 
         return $version;
@@ -125,6 +131,12 @@ class DocumentController extends Controller
      */
     public function buildNavigation($version)
     {
+        // ensure that we have a version to build navigation on
+        if(! $version) {
+            return [];
+        }
+
+        // build up the navigation
         return $version->navigation()->where('is_heading', true)->orderBy('sorting')->get()->map(function($item, $index) {
             return [
                 'title' => $item->title,

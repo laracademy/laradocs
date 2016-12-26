@@ -1,4 +1,4 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app')
 
 @section('content')
     <div class="panel panel-default">

@@ -99,7 +99,7 @@ class NavigationController extends Controller
         $navigation->document_id = intval($request->input('document_id'));
 
         // find new rank
-        $navigationItems = Navigation::where('version_id', $navigation->version_id)->where('parent_id', $parentNavigation->id)->orderBy('sorting');
+        $navigationItems = Navigation::where('version_id', $navigation->version_id)->where('parent_id', $parentNavigation->id);
         $navigation->sorting = $navigationItems->count() > 0 ? $navigationItems->orderBy('sorting', 'desc')->first()->sorting + 50 : 0;
 
         $navigation->save();

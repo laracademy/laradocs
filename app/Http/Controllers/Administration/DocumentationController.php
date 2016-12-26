@@ -50,6 +50,11 @@ class DocumentationController extends Controller
      */
     public function store(Request $request)
     {
+
+        // quick validation
+        $this->validate($request, ['title' => 'required']);
+
+        // create document
         $Parsedown            = new Parsedown;
         $document             = new Document;
         $document->version_id = $request->input('version_id');
@@ -68,8 +73,8 @@ class DocumentationController extends Controller
             $navigation->document_id = $document->id;
 
             // find new rank
-            $navigationItems = Navigation::where('version_id', $navigation->version_id)->where('parent_id', $navigation->parent_id)->orderBy('sorting');
-            $navigation->sorting = $navigationItems->count() > 0 ? $navigationItems->first()->sorting + 50 : 0;
+            $navigationItems = Navigation::where('version_id', $navigation->version_id)->where('parent_id', $navigation->parent_id);
+            $navigation->sorting = $navigationItems->count() > 0 ? $navigationItems->orderBy('sorting')->first()->sorting + 50 : 0;
 
             $navigation->save();
 
@@ -94,6 +99,10 @@ class DocumentationController extends Controller
      */
     public function update(Request $request, \App\Models\Document $document)
     {
+
+        // quick validation
+        $this->validate($request, ['title' => 'required']);
+        
         $Parsedown          = new Parsedown;
         $document->title    = $request->input('title');
         $document->slug     = str_slug($document->title);
