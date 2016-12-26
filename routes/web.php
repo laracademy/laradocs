@@ -18,6 +18,8 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], fu
     Route::get('')->uses('AdministrationController@index')->name('administration');
 
     Route::group(['prefix' => 'version'], function() {
+        Route::get('view/{version}')->uses('VersionController@view')->name('administration.version.view');
+
         Route::get('create')->uses('VersionController@create')->name('administration.version.create');
         Route::post('store')->uses('VersionController@store')->name('administration.version.store');
 
