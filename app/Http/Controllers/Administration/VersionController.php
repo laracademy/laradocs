@@ -20,13 +20,6 @@ class VersionController extends Controller
         $this->middleware('auth');
     }
 
-    public function view(\App\Models\Version $version)
-    {
-        return view('administration.version.view', [
-            'version' => $version
-        ]);
-    }
-
     /**
      * handles create form
      */

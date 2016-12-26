@@ -9,38 +9,65 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
+    @if($theme)
+        <link rel="stylesheet" href="{{ $theme }}">
+    @else
+        <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
+    @endif
+
+    <style>
+        .navbar { border-radius: 0px; }
+
+        .indent { padding-left: 32px; }
+        .text-bold{ font-weight: bold; }
+        .list-group-item{ border-radius: 0px; }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-inverse"> <!-- or nav-default -->
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ route('home') }}">{{ $site_name ? $site_name : 'Laradocs' }}</a>
+            </div>
 
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            @include('layouts.front.partials.left-navigation')
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- top navigation -->
-        @include('layouts.front.partials.top-navigation')
-        <!-- /top navigation -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        @yield('content')
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                {{--
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                --}}
+
+                <ul class="nav navbar-nav navbar-right">
+                    @include('layouts.front.partials.versions')
+                    <li>
+                        <a href="{{ route('auth.login') }}">
+                            Login!
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
+    </nav>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                @include('layouts.front.partials.left-navigation')
+            </div>
+            <div class="col-sm-10">
+                @yield('content')
+            </div>
+        </div>
     </div>
-    <!-- /#wrapper -->
-
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
