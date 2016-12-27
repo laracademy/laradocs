@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Laradocs') }}</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="//bootswatch.com/journal/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 

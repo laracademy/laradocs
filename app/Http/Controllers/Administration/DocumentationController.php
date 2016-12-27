@@ -76,7 +76,7 @@ class DocumentationController extends Controller
             return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The document has been created and added to the navigation successfully.']);
         }
 
-        return redirect()->route('administration.documentation', $document->version)->with('success', ['The Documentation titled: "'. $document->title .'" for version: "'. $document->version->tag .'" was created succesfully.']);
+        return redirect()->route('administration.version.view', $document->version)->with('success', ['The Documentation titled: "'. $document->title .'" for version: "'. $document->version->tag .'" was created succesfully.']);
     }
 
     /**
@@ -112,7 +112,7 @@ class DocumentationController extends Controller
         // remove self
         $document->delete();
 
-        return back();
+        return back()->with('success', ['The document was removed and any navigation was also removed.']);
     }
 
 }

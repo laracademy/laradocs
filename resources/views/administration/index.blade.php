@@ -88,25 +88,9 @@
                                         <i class="fa fa-times text-danger fa-2x"></i>
                                     @endif
                                 </td>
-                                <!--
-                                <td>
-                                    <h4>
-                                        <a href="{{ route('administration.documentation', $version) }}">
-                                            Edit Documents ({{ $version->documents()->count() }})
-                                        </a>
-                                    </h4>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <a href="{{ route('administration.navigation', $version) }}">
-                                            Edit Navigation
-                                        </a>
-                                    </h4>
-                                </td>
-                                -->
                                 <td>
                                     <div class="btn-group btn-group-justified">
-                                        <a href="{{ route('administration.version.destroy', $version) }}" class="btn btn-danger" onclick="return confirm('This will remove all assigned documents and navigational links, are you sure?');">
+                                        <a href="{{ route('administration.version.destroy', $version) }}" class="btn btn-primary" onclick="return confirm('This will remove all assigned documents and navigational links, are you sure?');">
                                             <i class="fa fa-trash"></i> Delete
                                         </a>
                                         <a href="{{ route('administration.version.edit', $version) }}" class="btn btn-info">
