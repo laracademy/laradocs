@@ -99,7 +99,7 @@ Once you have a section added you can create items. These items can either be a 
 
 ### Support
 
-Laradocs is unfinished and will be upgraded to the latest version of Laravel (at this time Laravel 5.5). There is still a lot of work to be done but you can send requests or bugs to [laradocs@laracademy.co](mailto:laradocs@laracademy.co).
+Laradocs is unfinished and will be upgraded to the latest version of Laravel (at this time Laravel 5.4). There is still a lot of work to be done but you can send requests or bugs to [laradocs@laracademy.co](mailto:laradocs@laracademy.co).
 
 Thank you
 
