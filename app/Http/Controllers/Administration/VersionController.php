@@ -20,6 +20,13 @@ class VersionController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        return view('administration.version.index', [
+            'versions' => Version::all(),
+        ]);
+    }
+
     public function view(\App\Models\Version $version)
     {
         return view('administration.version.view', [
@@ -43,14 +50,14 @@ class VersionController extends Controller
     public function store(Request $request)
     {
         $version = Version::create([
-            'tag'    => $request->input('tag'),
+            'name'   => $request->input('name'),
             'slug'   => str_slug($request->input('tag')),
             'active' => $request->input('active'),
         ]);
 
         $version->setDefault($request->input('is_default'));
 
-        return redirect()->route('administration')->with('success', ['The Version was created succesfully.']);
+        return redirect()->route('administration.version')->with('success', 'The Version was created succesfully.');
     }
 
     /**
@@ -72,15 +79,15 @@ class VersionController extends Controller
      */
     public function update(Request $request, \App\Models\Version $version)
     {
-        $version->default_document_id = intval($request->input('default_document_id')) != 0 ? intval($request->input('default_document_id')) : null;
-        $version->tag                 = $request->input('tag');
-        $version->slug                = str_slug($version->tag);
+        $version->document_id = intval($request->input('document_id')) != 0 ? intval($request->input('document_id')) : null;
+        $version->name                = $request->input('name');
+        $version->slug                = str_slug($version->name);
         $version->active              = $request->input('active');
         $version->save();
 
         $version->setDefault($request->input('is_default'));
 
-        return redirect()->route('administration')->with('success', ['The Version was updated succesfully.']);
+        return redirect()->route('administration.version')->with('success', 'The Version was updated succesfully.');
     }
 
     /**
@@ -97,6 +104,6 @@ class VersionController extends Controller
         // remove version
         $version->delete();
 
-        return redirect()->route('administration')->with('success', ['The Version was removed succesfully.']);
+        return redirect()->route('administration.version')->with('success', 'The Version was removed succesfully.');
     }
 }

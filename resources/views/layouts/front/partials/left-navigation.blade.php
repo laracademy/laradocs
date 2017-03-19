@@ -1,3 +1,5 @@
+@DELETE_AFTER
+
 @if($navigation)
     <h4>
         Navigation

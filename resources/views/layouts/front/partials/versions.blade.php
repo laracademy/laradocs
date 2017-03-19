@@ -1,3 +1,5 @@
+@DELETE_AFTER
+
 @if($active_versions->count() <= 0)
     {{-- no active versions, nothing will be displayed --}}
 @else

@@ -20,9 +20,9 @@ class Version extends Model {
      * @var array
      */
     protected $fillable = [
-        'tag',
+        'document_id',
+        'name',
         'slug',
-        'default_document_id',
         'is_default',
         'active',
     ];
@@ -41,7 +41,7 @@ class Version extends Model {
      */
     protected $casts = [
         'is_default' => 'boolean',
-        'active' => 'boolean',
+        'active'     => 'boolean',
     ];
 
     // Relationships

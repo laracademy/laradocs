@@ -15,9 +15,9 @@ class CreateTableVersions extends Migration
     {
         Schema::create('versions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tag');
+            $table->string('name');
+            $table->integer('document_id')->nullable();
             $table->string('slug');
-            $table->integer('default_document_id')->nullable();
             $table->boolean('is_default')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();

@@ -21,14 +21,6 @@ class DocumentController extends Controller
         // share all of the active versions on the front page
         view()->share('active_versions', Version::getActive()->get());
 
-        // todo; organize below
-
-        // share the navigation between all functions
-        //view()->share('navigation', $this->buildNavigation());
-
-        // get the version to display
-        //view()->share('version', $this->getVersion());
-
         // share the theme across all functions
         $theme = '';
         $themeSetting = Setting::getSetting('theme');

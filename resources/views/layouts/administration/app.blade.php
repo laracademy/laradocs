@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $site_name ? $site_name : 'Laradocs' }}</title>
+    <title>Laradocs - SPOT</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
@@ -16,17 +16,13 @@
 </head>
 <body>
 
-    @include('layouts.front.partials.navigation-top')
+    @include('layouts.administration.partials.navigation-top')
 
     <div class="container-fluid">
         <div class="row">
-            @include('layouts.front.partials.navigation-left')
+            @include('layouts.administration.partials.navigation-left')
         </div>
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-            <a href="{{ route('auth.login') }}">
-                Login!
-            </a>
-
             @yield('content')
         </main>
     </div>

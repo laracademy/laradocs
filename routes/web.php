@@ -15,17 +15,18 @@
 Route::get('login')->uses('Auth\LoginController@showLoginForm');
 
 Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], function() {
-    Route::get('')->uses('AdministrationController@index')->name('administration');
+    Route::get('')->uses('Dashboard\DashboardController@index')->name('administration.dashboard');
 
     Route::group(['prefix' => 'version'], function() {
-        Route::get('view/{version}')->uses('VersionController@view')->name('administration.version.view');
-
+        Route::get('')->uses('VersionController@index')->name('administration.version');
         Route::get('create')->uses('VersionController@create')->name('administration.version.create');
         Route::post('store')->uses('VersionController@store')->name('administration.version.store');
-
         Route::get('edit/{version}')->uses('VersionController@edit')->name('administration.version.edit');
         Route::post('update/{version}')->uses('VersionController@update')->name('administration.version.update');
 
+
+
+        Route::get('view/{version}')->uses('VersionController@view')->name('administration.version.view');
         // destroy
         Route::get('destroy/{version}')->uses('VersionController@destroy')->name('administration.version.destroy');
     });
@@ -90,7 +91,7 @@ Route::group(['prefix' => 'auth'], function(){
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
     Route::post('login', 'Auth\LoginController@login')->name('auth.login.post');
-    Route::post('logout', 'Auth\LoginController@logout')->name('auth.logout');
+    Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');
 });
 
 Route::group(['prefix' => '', 'namespace' => 'Front'], function(){
