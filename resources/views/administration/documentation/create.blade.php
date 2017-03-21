@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>
-        Creating New Document for Version: {{ $version->tag }}
+        Creating New Document for Version: {{ $version->name }}
     </h1>
     <p class="text-muted">
         Please fill in the form below to create the document.
@@ -21,7 +21,7 @@
                 @include('administration.documentation.partials.form', ['document' => $document])
 
                 <div class="text-right">
-                    <a href="{{ route('administration.documentation.listing', $version) }}" class="btn btn-info">Cancel</a>
+                    <a href="{{ route('administration.documentation.version', $version) }}" class="btn btn-info">Cancel</a>
                     <input type="submit" class="btn btn-success btn-lg" value="Save Document">
                 </div>
             </form>

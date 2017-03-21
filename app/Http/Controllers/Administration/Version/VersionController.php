@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administration;
+namespace App\Http\Controllers\Administration\Version;
 
 use App\Models\Version;
 use App\Models\Document;
@@ -20,9 +20,13 @@ class VersionController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * will list all of the versions found on the system
+     * @return [type] [description]
+     */
     public function index()
     {
-        return view('administration.version.index', [
+        return view('administration.versions.index', [
             'versions' => Version::all(),
         ]);
     }
@@ -32,7 +36,7 @@ class VersionController extends Controller
      */
     public function create()
     {
-        return view('administration.version.create', [
+        return view('administration.versions.create', [
             'version' => new Version,
         ]);
     }
@@ -42,6 +46,11 @@ class VersionController extends Controller
      */
     public function store(Request $request)
     {
+
+        // validate
+        $this->validate($request, ['name' => 'required']);
+
+        // create the version
         $version = Version::create([
             'name'   => $request->input('name'),
             'slug'   => str_slug($request->input('name')),
@@ -50,7 +59,7 @@ class VersionController extends Controller
 
         $version->setDefault($request->input('is_default'));
 
-        return redirect()->route('administration.version')->with('success', 'The Version was created succesfully.');
+        return redirect()->route('administration.versions')->with('success', 'The Version was created succesfully.');
     }
 
     /**
@@ -61,7 +70,7 @@ class VersionController extends Controller
         // default document to choose from
         $documents = $version->documents->sortBy('title')->pluck('title', 'id');
 
-        return view('administration.version.edit', [
+        return view('administration.versions.edit', [
             'version'    => $version,
             'documents'  => $documents,
         ]);
@@ -70,7 +79,7 @@ class VersionController extends Controller
     /**
      * handles the update of the version
      */
-    public function update(Request $request, \App\Models\Version $version)
+    public function update(Request $request, Version $version)
     {
         $version->document_id         = intval($request->input('document_id')) != 0 ? intval($request->input('document_id')) : null;
         $version->name                = $request->input('name');
@@ -80,7 +89,7 @@ class VersionController extends Controller
 
         $version->setDefault($request->input('is_default'));
 
-        return redirect()->route('administration.version')->with('success', 'The Version was updated succesfully.');
+        return redirect()->route('administration.versions')->with('success', 'The Version "'. $version->name .'" was updated succesfully.');
     }
 
     /**
@@ -97,12 +106,17 @@ class VersionController extends Controller
         // remove version
         $version->delete();
 
-        return redirect()->route('administration.version')->with('success', 'The Version was removed succesfully.');
+        return redirect()->route('administration.versions')->with('success', 'The Version was removed succesfully.');
     }
 
-    public function manage(Version $version)
+    /**
+     * shows the dashboard for the specified version
+     * @param  Version $version [description]
+     * @return [type]           [description]
+     */
+    public function dashboard(Version $version)
     {
-        return view('administration.version.manage', [
+        return view('administration.versions.dashboard', [
             'version' => $version,
         ]);
     }

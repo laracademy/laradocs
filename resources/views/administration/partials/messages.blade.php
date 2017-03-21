@@ -12,12 +12,10 @@
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <h4>
-            Oh No
+            Sorry
         </h4>
         @foreach ($errors->all() as $message)
-            <p>
-                {{ $message }}
-            </p>
+            {{ $message }}
         @endforeach
     </div>
 @endif

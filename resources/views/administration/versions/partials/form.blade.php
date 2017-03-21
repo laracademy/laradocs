@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>Name</label>
+    <label>Name <i class="fa fa-asterisk text-danger"></i></label>
     <input type="text" class="form-control" name="name" value="{{ old('name', $version->name) }}">
     <p class="text-muted">The name of the version, examples: master, 5.4, 5.3-alpha</p>
 </div>

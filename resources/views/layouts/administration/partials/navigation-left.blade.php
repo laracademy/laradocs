@@ -8,10 +8,10 @@
       <a class="nav-link" href="{{ route('administration.dashboard') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('administration.version') }}"><i class="fa fa-fw fa-tags"></i> Versions</a>
+      <a class="nav-link" href="{{ route('administration.versions') }}"><i class="fa fa-fw fa-tags"></i> Versions</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('administration.version') }}"><i class="fa fa-fw fa-book"></i> Files</a>
+      <a class="nav-link" href="{{ route('administration.versions') }}"><i class="fa fa-fw fa-book"></i> Files</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#"><i class="fa fa-fw fa-gear"></i> Site Settings</a>

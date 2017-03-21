@@ -8,12 +8,15 @@
 
     <div class="card">
         <div class="card-block">
-            <form action="{{ route('administration.version.update', $version) }}" method="POST" autocomplete="off">
+            @include('administration.partials.messages')
+
+            <form action="{{ route('administration.versions.update', $version) }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
 
-                @include('administration.version.partials.form', ['version' => $version])
+                @include('administration.versions.partials.form', ['version' => $version])
 
                 <div class="text-right">
+                    <a href="{{ route('administration.versions') }}" class="btn btn-danger">Cancel</a>
                     <input type="submit" class="btn btn-success btn-lg" value="Update Version">
                 </div>
             </form>

@@ -28,10 +28,13 @@ class GithubController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($versionId = null)
     {
+        $selectedVersion = ($versionId) ? Version::find($versionId)->id : null;
+
         return view('administration.imports.github.index', [
-            'versions' => Version::orderBy('tag')->get(),
+            'versions' => Version::orderBy('name')->get(),
+            'selected' => $selectedVersion,
         ]);
     }
 

@@ -17,7 +17,7 @@
                 @include('administration.documentation.partials.form', ['document' => $document])
 
                 <div class="text-right">
-                    <a href="{{ route('administration.documentation', $document->version) }}" class="btn btn-info">Cancel</a>
+                    <a href="{{ route('administration.documentation.version', $document->version) }}" class="btn btn-info">Cancel</a>
                     <input type="submit" class="btn btn-success btn-lg" value="Update Document">
                 </div>
             </form>

@@ -10,7 +10,7 @@
                 <div class="card-block">
                     <h3 class="card-title">{{ number_format($versionCount, 0) }} Versions</h3>
                     <p class="card-text">Versions allow you to keep track of different versions of the documentation. Of course you can also have a single version such as "master".</p>
-                    <a href="{{ route('administration.version') }}" class="btn btn-primary">See All Versions</a>
+                    <a href="{{ route('administration.versions') }}" class="btn btn-primary">See All Versions</a>
                 </div>
             </div>
         </div>

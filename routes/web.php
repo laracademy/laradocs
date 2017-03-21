@@ -12,41 +12,13 @@
 */
 
 // Quick fix for Login
-Route::get('login')->uses('Auth\LoginController@showLoginForm');
+
+include('administration.php');
 
 Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], function() {
-    Route::get('')->uses('Dashboard\DashboardController@index')->name('administration.dashboard');
-
-    Route::group(['prefix' => 'versions'], function() {
-        Route::get('')->uses('VersionController@index')->name('administration.version');
-        Route::get('create')->uses('VersionController@create')->name('administration.version.create');
-        Route::post('store')->uses('VersionController@store')->name('administration.version.store');
-        Route::get('edit/{version}')->uses('VersionController@edit')->name('administration.version.edit');
-        Route::post('update/{version}')->uses('VersionController@update')->name('administration.version.update');
-        Route::get('manage/{version}')->uses('VersionController@manage')->name('administration.version.manage');
-        Route::get('destroy/{version}')->uses('VersionController@destroy')->name('administration.version.destroy');
-    });
-
-    // Documentation
-    Route::group(['prefix' => 'documentation'], function() {
-        Route::get('listing/{version}')->uses('DocumentationController@listing')->name('administration.documentation.listing');
-
-        Route::get('create/{version}/{navigation?}')->uses('DocumentationController@create')->name('administration.documentation.create');
-        Route::post('store')->uses('DocumentationController@store')->name('administration.documentation.store');
-
-        Route::get('edit/{document}')->uses('DocumentationController@edit')->name('administration.documentation.edit');
-        Route::post('update/{document}')->uses('DocumentationController@update')->name('administration.documentation.update');
 
 
-        // destroy
-        Route::get('destroy/{document}')->uses('DocumentationController@destroy')->name('administration.documentation.destroy');
 
-        // version must be last, order of routes
-        Route::get('/{version}')->uses('DocumentationController@index')->name('administration.documentation');
-        // import
-
-
-    });
 
     // Navigation
     Route::group(['prefix' => 'navigation'], function() {
@@ -75,16 +47,12 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], fu
         Route::get('destroy/token')->uses('SettingsController@destroyToken')->name('administration.settings.destroy.token');
     });
 
-    // Import
-    Route::group(['prefix' => 'import', 'namespace' => 'Imports'], function() {
-        Route::get('import/github')->uses('GithubController@index')->name('administration.import.github');
-        Route::post('import/github/store')->uses('GithubController@store')->name('administration.import.github.store');
-    });
 
 });
 
+// AUTHENTICATION
+Route::get('login')->uses('Auth\LoginController@showLoginForm');
 Route::group(['prefix' => 'auth'], function(){
-    // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
     Route::post('login', 'Auth\LoginController@login')->name('auth.login.post');
     Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');

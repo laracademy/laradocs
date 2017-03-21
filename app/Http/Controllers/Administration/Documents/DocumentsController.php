@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administration;
+namespace App\Http\Controllers\Administration\Documents;
 
 use Parsedown;
 use App\Models\Version;
@@ -9,7 +9,7 @@ use App\Models\Navigation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DocumentationController extends Controller
+class DocumentsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,16 +21,24 @@ class DocumentationController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * will load up a specified version's documents
-     */
-    public function listing(Version $version)
+    public function version(Version $version)
     {
-        return view('administration.documentation.listing', [
+        return view('administration.documentation.version', [
             'version'   => $version,
             'documents' => $version->documents()->orderBy('title')->get()
         ]);
     }
+
+    /**
+     * will load up a specified version's documents
+     */
+    // public function listing(Version $version)
+    // {
+    //     return view('administration.documentation.listing', [
+    //         'version'   => $version,
+    //         'documents' => $version->documents()->orderBy('title')->get()
+    //     ]);
+    // }
 
     /**
      * handles the create form
@@ -49,7 +57,7 @@ class DocumentationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required']);
+        $this->validate($request, ['title' => 'required']);
 
         $Parsedown            = new Parsedown;
         $document             = new Document;
@@ -77,7 +85,7 @@ class DocumentationController extends Controller
             return redirect()->route('administration.navigation', $navigation->version_id)->with('success', 'The document has been created and added to the navigation successfully.');
         }
 
-        return redirect()->route('administration.documentation.listing', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was created succesfully.');
+        return redirect()->route('administration.documentation.version', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was created succesfully.');
     }
 
     /**
@@ -103,7 +111,7 @@ class DocumentationController extends Controller
         $document->html     = $Parsedown->text($document->markdown);
         $document->save();
 
-        return redirect()->route('administration.documentation.listing', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was updated succesfully.');
+        return redirect()->route('administration.documentation.version', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was updated succesfully.');
     }
 
     public function destroy(Document $document)

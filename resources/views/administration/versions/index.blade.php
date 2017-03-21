@@ -13,7 +13,7 @@
     <!-- alert -->
 
     <div class="text-right pb-2">
-        <a href="{{ route('administration.version.create') }}" class="btn btn-success"><i class="fa fa-tag"></i> Create New Version</a>
+        <a href="{{ route('administration.versions.create') }}" class="btn btn-success"><i class="fa fa-tag"></i> Create New Version</a>
     </div>
 
     @include('layouts.administration.partials.messages')
@@ -71,9 +71,9 @@
                     </td>
                     <td>
                         <div class="btn-group btn-group-justified">
-                            <a class="btn btn-danger" href="{{ route('administration.version.destroy', $version) }}" onclick="return confirm('Are you sure you want to delete the selected version?');"><i class="fa fa-fw fa-trash"></i><span class="hidden-lg-down"> Delete</span></a>
-                            <a class="btn btn-primary" href="{{ route('administration.version.edit', $version) }}"><i class="fa fa-fw fa-pencil"></i><span class="hidden-lg-down"> Edit</span></a>
-                            <a href="{{ route('administration.version.manage', $version) }}" class="btn btn-secondary"><i class="fa fa-fw fa-gear"></i><span class="hidden-lg-down"> Manage</span></a>
+                            <a class="btn btn-danger" href="{{ route('administration.versions.destroy', $version) }}" onclick="return confirm('Are you sure you want to delete the selected version?');"><i class="fa fa-fw fa-trash"></i><span class="hidden-lg-down"> Delete</span></a>
+                            <a class="btn btn-primary" href="{{ route('administration.versions.edit', $version) }}"><i class="fa fa-fw fa-pencil"></i><span class="hidden-lg-down"> Edit</span></a>
+                            <a href="{{ route('administration.versions.dashboard', $version) }}" class="btn btn-secondary"><i class="fa fa-fw fa-gear"></i><span class="hidden-lg-down"> Manage</span></a>
                         </div>
                     </td>
                 </tr>
