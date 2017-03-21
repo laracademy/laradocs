@@ -13,7 +13,7 @@
                 <div class="card-block">
                     <h3 class="card-title">{{ $version->documents->count() }} Files</h3>
                     <p class="card-text">Create, edit or delete existing files for this version.</p>
-                    <a href="{{ route('administration.documentation', $version) }}" class="btn btn-primary">View Associated Files</a>
+                    <a href="{{ route('administration.documentation.listing', $version) }}" class="btn btn-primary">View Associated Files</a>
                 </div>
             </div>
         </div>

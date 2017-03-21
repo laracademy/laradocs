@@ -24,10 +24,9 @@ class DocumentationController extends Controller
     /**
      * will load up a specified version's documents
      */
-    public function index(\App\Models\Version $version)
+    public function listing(Version $version)
     {
-        // load documents accordingly
-        return view('administration.documentation.index', [
+        return view('administration.documentation.listing', [
             'version'   => $version,
             'documents' => $version->documents()->orderBy('title')->get()
         ]);
@@ -36,7 +35,7 @@ class DocumentationController extends Controller
     /**
      * handles the create form
      */
-    public function create(\App\Models\Version $version, $navigation = null)
+    public function create(Version $version, $navigation = null)
     {
         return view('administration.documentation.create', [
             'version'       => $version,
@@ -50,6 +49,8 @@ class DocumentationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, ['name' => 'required']);
+
         $Parsedown            = new Parsedown;
         $document             = new Document;
         $document->version_id = $request->input('version_id');
@@ -73,18 +74,19 @@ class DocumentationController extends Controller
 
             $navigation->save();
 
-            return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The document has been created and added to the navigation successfully.']);
+            return redirect()->route('administration.navigation', $navigation->version_id)->with('success', 'The document has been created and added to the navigation successfully.');
         }
 
-        return redirect()->route('administration.version.view', $document->version)->with('success', ['The Documentation titled: "'. $document->title .'" for version: "'. $document->version->tag .'" was created succesfully.']);
+        return redirect()->route('administration.documentation.listing', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was created succesfully.');
     }
 
     /**
      * handles the edit document form
      */
-    public function edit(\App\Models\Document $document)
+    public function edit(Document $document)
     {
         return view('administration.documentation.edit', [
+            'version'  => $document->version,
             'document' => $document,
         ]);
     }
@@ -92,7 +94,7 @@ class DocumentationController extends Controller
     /**
      * handles updating the document
      */
-    public function update(Request $request, \App\Models\Document $document)
+    public function update(Request $request, Document $document)
     {
         $Parsedown          = new Parsedown;
         $document->title    = $request->input('title');
@@ -101,10 +103,10 @@ class DocumentationController extends Controller
         $document->html     = $Parsedown->text($document->markdown);
         $document->save();
 
-        return redirect()->route('administration.documentation', $document->version)->with('success', ['The Documentation titled: "'. $document->title .'" for version: "'. $document->version->tag .'" was updated succesfully.']);
+        return redirect()->route('administration.documentation.listing', $document->version)->with('success', 'The Documentation titled: "'. $document->title .'" for version: "'. $document->version->name .'" was updated succesfully.');
     }
 
-    public function destroy(\App\Models\Document $document)
+    public function destroy(Document $document)
     {
         // remove any navigation
         Navigation::where('document_id', $document->id)->delete();
@@ -112,7 +114,7 @@ class DocumentationController extends Controller
         // remove self
         $document->delete();
 
-        return back()->with('success', ['The document was removed and any navigation was also removed.']);
+        return back()->with('success', 'The document was removed and any navigation was also removed.');
     }
 
 }

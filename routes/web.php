@@ -17,7 +17,7 @@ Route::get('login')->uses('Auth\LoginController@showLoginForm');
 Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], function() {
     Route::get('')->uses('Dashboard\DashboardController@index')->name('administration.dashboard');
 
-    Route::group(['prefix' => 'version'], function() {
+    Route::group(['prefix' => 'versions'], function() {
         Route::get('')->uses('VersionController@index')->name('administration.version');
         Route::get('create')->uses('VersionController@create')->name('administration.version.create');
         Route::post('store')->uses('VersionController@store')->name('administration.version.store');

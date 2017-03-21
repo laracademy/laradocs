@@ -1,24 +1,28 @@
 @extends('layouts.administration.app', ['section' => 'Creating document for: '. $version->name])
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Creating New Document for Version: {{ $version->tag }}
-            </h3>
-        </div>
-        <div class="panel-body">
+    <h1>
+        Creating New Document for Version: {{ $version->tag }}
+    </h1>
+    <p class="text-muted">
+        Please fill in the form below to create the document.
+    </p>
+
+    <div class="card">
+        <div class="card-block">
+
+            @include('layouts.administration.partials.messages')
 
             <form action="{{ route('administration.documentation.store') }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
                 <input type="hidden" name="version_id" value="{{ $version->id }}">
                 <input type="hidden" name="navigation_id" value="{{ $navigation_id }}">
 
-                @include('administration.documentation.form', ['document' => $document])
+                @include('administration.documentation.partials.form', ['document' => $document])
 
-                <div>
-                <a href="{{ route('administration.documentation', $version) }}" class="btn btn-info">Cancel</a>
-                    <input type="submit" class="btn btn-success" value="Save Document">
+                <div class="text-right">
+                    <a href="{{ route('administration.documentation.listing', $version) }}" class="btn btn-info">Cancel</a>
+                    <input type="submit" class="btn btn-success btn-lg" value="Save Document">
                 </div>
             </form>
 

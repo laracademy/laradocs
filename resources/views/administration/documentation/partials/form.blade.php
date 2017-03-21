@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>
-        Document Title
+        Document Title <span class="text-danger">*</span>
     </label>
     <input type="text" class="form-control" name="title" value="{{ old('title', $document->title) }}" autofocus="autofocus">
 </div>
