@@ -13,7 +13,9 @@
 
                 @include('administration.version.partials.form')
 
-                <input type="submit" class="btn btn-success" value="Create Version">
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success btn-lg" value="Create Version">
+                </div>
             </form>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app', ['section' => 'Creating document for: '. $version->name])
 
 @section('content')
     <div class="panel panel-default">
@@ -26,7 +26,12 @@
     </div>
 @endsection
 
-@push('script')
+@push('style')
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
+@endpush
+
+@push('scripts')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
     <script>
         var simplemde = new SimpleMDE({ element: $("#markdown")[0] });
     </script>

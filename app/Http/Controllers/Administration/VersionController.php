@@ -27,13 +27,6 @@ class VersionController extends Controller
         ]);
     }
 
-    public function view(\App\Models\Version $version)
-    {
-        return view('administration.version.view', [
-            'version' => $version
-        ]);
-    }
-
     /**
      * handles create form
      */
@@ -51,7 +44,7 @@ class VersionController extends Controller
     {
         $version = Version::create([
             'name'   => $request->input('name'),
-            'slug'   => str_slug($request->input('tag')),
+            'slug'   => str_slug($request->input('name')),
             'active' => $request->input('active'),
         ]);
 
@@ -63,7 +56,7 @@ class VersionController extends Controller
     /**
      * handles the editing form
      */
-    public function edit(\App\Models\Version $version)
+    public function edit(Version $version)
     {
         // default document to choose from
         $documents = $version->documents->sortBy('title')->pluck('title', 'id');
@@ -79,7 +72,7 @@ class VersionController extends Controller
      */
     public function update(Request $request, \App\Models\Version $version)
     {
-        $version->document_id = intval($request->input('document_id')) != 0 ? intval($request->input('document_id')) : null;
+        $version->document_id         = intval($request->input('document_id')) != 0 ? intval($request->input('document_id')) : null;
         $version->name                = $request->input('name');
         $version->slug                = str_slug($version->name);
         $version->active              = $request->input('active');
@@ -93,7 +86,7 @@ class VersionController extends Controller
     /**
      * handles removing the version and all associated items
      */
-    public function destroy(\App\Models\Version $version)
+    public function destroy(Version $version)
     {
         // remove version's navigation
         Navigation::where('version_id', $version->id)->delete();
@@ -105,5 +98,12 @@ class VersionController extends Controller
         $version->delete();
 
         return redirect()->route('administration.version')->with('success', 'The Version was removed succesfully.');
+    }
+
+    public function manage(Version $version)
+    {
+        return view('administration.version.manage', [
+            'version' => $version,
+        ]);
     }
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laradocs - SPOT</title>
+    <title>Laradocs {{ isset($section) ? ' - '. $section : '' }}</title>
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- base -->
     <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
+
+    @stack('style')
 </head>
 <body>
 

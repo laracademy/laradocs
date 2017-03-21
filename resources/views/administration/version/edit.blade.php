@@ -13,7 +13,9 @@
 
                 @include('administration.version.partials.form', ['version' => $version])
 
-                <input type="submit" class="btn btn-success" value="Update Version">
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success btn-lg" value="Update Version">
+                </div>
             </form>
 
         </div>
