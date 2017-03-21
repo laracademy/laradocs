@@ -73,7 +73,7 @@
                         <div class="btn-group btn-group-justified">
                             <a class="btn btn-danger" href="{{ route('administration.version.destroy', $version) }}" onclick="return confirm('Are you sure you want to delete the selected version?');"><i class="fa fa-fw fa-trash"></i><span class="hidden-lg-down"> Delete</span></a>
                             <a class="btn btn-primary" href="{{ route('administration.version.edit', $version) }}"><i class="fa fa-fw fa-pencil"></i><span class="hidden-lg-down"> Edit</span></a>
-                            <a href="#" class="btn btn-secondary"><i class="fa fa-fw fa-eye"></i><span class="hidden-lg-down"> View</span></a>
+                            <a href="#" class="btn btn-secondary"><i class="fa fa-fw fa-gear"></i><span class="hidden-lg-down"> Manage</span></a>
                         </div>
                     </td>
                 </tr>
