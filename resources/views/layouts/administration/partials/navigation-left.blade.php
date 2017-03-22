@@ -14,7 +14,7 @@
       <a class="nav-link" href="{{ route('administration.versions') }}"><i class="fa fa-fw fa-book"></i> Files</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa fa-fw fa-gear"></i> Site Settings</a>
+      <a class="nav-link" href="{{ route('administration.settings') }}"><i class="fa fa-fw fa-gear"></i> Site Settings</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#"><i class="fa fa-fw fa-cloud-download"></i> Import</a>

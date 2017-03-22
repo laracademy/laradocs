@@ -95,3 +95,5 @@ h1 {
     .btn-group-justified .btn .dropdown-menu,
     .btn-group-justified .btn-group .dropdown-menu {
       left: auto; }
+
+.indent { padding-left: 48px; }

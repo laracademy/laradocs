@@ -27,7 +27,7 @@ class SettingsController extends Controller
         // grab all settings
         $settings     = Setting::all()->pluck('parameter', 'setting');
         $siteSettings = [
-            'site_name'       => isset($settings['site_name']) ? $settings['site_name'] : '',
+            'site_name'       => isset($settings['site_name']) ? $settings['site_name'] : 'Laradocs',
             'theme'           => isset($settings['theme']) ? $settings['theme'] : '',
             'github_username' => isset($settings['github_username']) ? $settings['github_username'] : '',
             'github_token'    => isset($settings['github_token']) ? $settings['github_token'] : '',

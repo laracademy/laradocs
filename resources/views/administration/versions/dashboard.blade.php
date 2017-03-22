@@ -23,7 +23,7 @@
                 <div class="card-block">
                     <h3 class="card-title">Navigation</h3>
                     <p class="card-text">Setup the navigation for this documentation (left hand side).</p>
-                    <a href="#" class="btn btn-primary">View Associated Navigation</a>
+                    <a href="{{ route('administration.navigation', $version) }}" class="btn btn-primary">View Associated Navigation</a>
                 </div>
             </div>
         </div>

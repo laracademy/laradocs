@@ -1,7 +1,7 @@
 @extends('layouts.administration.app', ['section' => 'Dashboard'])
 
 @section('content')
-    <h1>Documentation - Dashboard</h1>
+    <h1>Dashboard</h1>
     <p class="text-muted">This is your dashboard, from here you can get a quick overview of the documentation that you have online.</p>
 
     <div class="row">

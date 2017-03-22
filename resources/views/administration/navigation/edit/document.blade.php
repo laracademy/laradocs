@@ -1,13 +1,15 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app', ['section' => 'Editing Navigation Document'])
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Edit Navigation Item
-            </h3>
-        </div>
-        <div class="panel-body">
+    <h1>
+        Editing Navigation Document
+    </h1>
+    <p class="text-muted">
+        In this section you can manage the navigation of your documentation. You can add existing documents or create new documents on the fly.
+    </p>
+
+    <div class="card">
+        <div class="card-block">
 
             <form id="frmDocument" action="{{ route('administration.navigation.update.document') }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
@@ -28,9 +30,9 @@
                     <input type="text" class="form-control" name="title" value="{{ $navigation->title }}">
                 </div>
 
-                <div>
-                    <a href="{{ route('administration.navigation', $navigation->version) }}" class="btn btn-info">Cancel</a>
-                    <input type="submit" class="btn btn-success" value="Update Navigation Item">
+                <div class="text-right">
+                    <a href="{{ route('administration.navigation', $navigation->version) }}" class="btn btn-danger">Cancel</a>
+                    <input type="submit" class="btn btn-success btn-lg" value="Update Navigation Item">
                 </div>
             </form>
 

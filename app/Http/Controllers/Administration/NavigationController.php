@@ -48,6 +48,9 @@ class NavigationController extends Controller
      */
     public function storeSection(Request $request)
     {
+        // validation
+        $this->validate($request, ['title' => 'required']);
+
         $navigation             = new Navigation;
         $navigation->is_heading = true;
         $navigation->version_id = intval($request->input('version_id'));
@@ -87,6 +90,8 @@ class NavigationController extends Controller
      */
     public function storeDocument(Request $request)
     {
+        // validation
+        $this->validate($request, ['document_id' => 'required'], ['document_id.required' => 'Please choose an existing document']);
 
         // first look up the parent navigation
         $parentNavigation = Navigation::find($request->input('navigation_id'));
@@ -103,10 +108,6 @@ class NavigationController extends Controller
         $navigation->sorting = $navigationItems->count() > 0 ? $navigationItems->orderBy('sorting', 'desc')->first()->sorting + 50 : 0;
 
         $navigation->save();
-
-        if(intval($request->input('add_redirect')) == 1) {
-            return redirect()->route('administration.navigation.create.document', $parentNavigation->id)->with('success', ['The document has been added to the navigation successfully.']);
-        }
 
         return redirect()->route('administration.navigation', $navigation->version_id)->with('success', ['The document has been added to the navigation successfully.']);
     }

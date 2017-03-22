@@ -1,103 +1,84 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app', ['section' => 'Navigation for '. $version->name])
 
 @section('content')
+    <h1>
+        Navigation for: {{ $version->name }}
+    </h1>
+    <p class="text-muted">
+        In this section you can manage the navigation of your documentation. You can add existing documents or create new documents on the fly.
+    </p>
 
     @include('administration.partials.messages')
 
     @if($navigation->count() <= 0)
         <div class="alert alert-danger">
             <h4>
-                No Navigation for {{ $version->tag }}
+                No Navigation Found!
             </h4>
-            <p>
-                Sorry, there was no navigation found for the version ({{ $version->tag }}). Please start by creating a new section.
-            </p>
+            Sorry, there appears to be no navigation found for the version "{{ $version->name }}". Please start off by creating a new section.
         </div>
     @endif
 
-    <div class="list-group">
-        <div class="list-group-item">
+    <ul class="list-group">
+        <li class="list-group-item">
             <a href="{{ route('administration.navigation.create.section', $version) }}"><i class="fa fa-plus-circle"></i> Add New Section</a>
-        </div>
-
+        </li>
         @foreach($navigation as $nav_item)
-            <div class="list-group-item active">
-                <span class="pull-left">
+            <li class="list-group-item">
+                {{ $nav_item['title'] }}&nbsp;
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="{{ route('administration.navigation.edit.section', $nav_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil text-info"></i> Edit</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('administration.navigation.destroy', $nav_item['id']) }}" onclick="return confirm('This will also remove any linked documents, are you sure?');" class="text-danger"><i class="fa fa-trash"></i> Delete</a>
+                    </li>
+                    @if(!$loop->first)
+                        <li class="list-inline-item">
+                            <a href="{{ route('administration.navigation.rank.up', $nav_item['id']) }}" class="text-warning"><i class="fa fa-level-up"></i> Move Up</a>
+                        </li>
+                    @endif
+                    @if(!$loop->last)
+                        <li class="list-inline-item">
+                            <a href="{{ route('administration.navigation.rank.down', $nav_item['id']) }}" class="text-warning"><i class="fa fa-level-down"></i> Move Down</a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+            {{-- DOCUMENTS --}}
+            @foreach($nav_item['sub_navigation'] as $sub_item)
+                <li class="list-group-item indent">
+                    <i class="fa fa-angle-double-right"></i>&nbsp; {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}&nbsp;
                     <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="{{ route('administration.navigation.edit.document', $sub_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil"></i> Edit</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ route('administration.documentation.edit', $sub_item->document) }}" title="Edit Document" class="text-info"><i class="fa fa-file-text"></i> View Document</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ route('administration.navigation.destroy', $sub_item['id']) }}" title="Delete Navigation Item" class="text-danger"><i class="fa fa-trash"></i> Delete</a>
+                        </li>
                         @if(!$loop->first)
-                            <li>
-                            <a href="{{ route('administration.navigation.rank.up', $nav_item['id']) }}"><i class="fa fa-arrow-up"></i></a>
+                            <li class="list-inline-item">
+                                <a href="{{ route('administration.navigation.rank.up', $sub_item['id']) }}" class="text-warning"><i class="fa fa-level-up"></i> Move Up</a>
                             </li>
                         @endif
                         @if(!$loop->last)
-                            <li>
-                                <a href="{{ route('administration.navigation.rank.down', $nav_item['id']) }}"><i class="fa fa-arrow-down"></i></a>
+                            <li class="list-inline-item">
+                                <a href="{{ route('administration.navigation.rank.down', $sub_item['id']) }}" class="text-warning"><i class="fa fa-level-down"></i> Move Down</a>
                             </li>
                         @endif
-                        <li>
-                            {{ $nav_item['title'] }}
-                        </li>
                     </ul>
-                </span>
-
-                <span class="pull-right">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="{{ route('administration.navigation.edit.section', $nav_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil text-info"></i></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('administration.navigation.destroy', $nav_item['id']) }}" onclick="return confirm('This will also remove any linked documents, are you sure?');"><i class="fa fa-trash"></i></a>
-                        </li>
-                    </ul>
-                </span>
-
-                <span class="clearfix"></span>
-            </div>
-            <!-- documents -->
-            @foreach($nav_item['sub_navigation'] as $sub_item)
-                <div class="list-group-item indent text-bold">
-
-                    <span class="pull-left">
-                        <ul class="list-inline">
-                            @if(!$loop->first)
-                                <li>
-                                    <a href="{{ route('administration.navigation.rank.up', $sub_item['id']) }}"><i class="fa fa-arrow-up"></i></a>
-                                </li>
-                            @endif
-                            @if(!$loop->last)
-                                <li>
-                                    <a href="{{ route('administration.navigation.rank.down', $sub_item['id']) }}"><i class="fa fa-arrow-down"></i></a>
-                                </li>
-                            @endif
-                            <li>
-                                {{ $sub_item->title ? $sub_item->title : $sub_item->document->title }}
-                            </li>
-                        </ul>
-                    </span>
-
-                    <span class="pull-right">
-                        <ul class="list-inline">
-                            <li>
-                                <a href="{{ route('administration.navigation.edit.document', $sub_item['id']) }}" title="Edit Navigation Item"><i class="fa fa-pencil text-info"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ route('administration.documentation.edit', $sub_item->document) }}" title="Edit Document"><i class="fa fa-file-text"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ route('administration.navigation.destroy', $sub_item['id']) }}" title="Delete Navigation Item"><i class="fa fa-trash text-danger"></i></a>
-                            </li>
-                        </ul>
-                    </span>
-
-                    <span class="clearfix"></span>
-                </div>
+                </li>
             @endforeach
-            <div class="list-group-item indent">
+            <li class="list-group-item indent">
                 <a href="{{ route('administration.navigation.create.document', $nav_item['id']) }}"><i class="fa fa-plus-circle"></i> Add Existing Document</a>
-            </div>
-            <div class="list-group-item indent">
+            </li>
+            <li class="list-group-item indent">
                 <a href="{{ route('administration.documentation.create', [$nav_item['version_id'], $nav_item['id']]) }}"><i class="fa fa-plus-circle"></i> Add New Document</a>
-            </div>
+            </li>
+            {{-- DOCUMENTS --}}
         @endforeach
-    </div>
+    </ul>
 @endsection

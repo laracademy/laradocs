@@ -1,13 +1,17 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app', ['section' => 'Creating new Section'])
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Create New Section
-            </h3>
-        </div>
-        <div class="panel-body">
+    <h1>
+        Creating new Section
+    </h1>
+    <p class="text-muted">
+        Please fill in the form below to create a new section.
+    </p>
+
+    <div class="card">
+        <div class="card-block">
+
+            @include('administration.partials.messages')
 
             <form action="{{ route('administration.navigation.store.section') }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
@@ -18,9 +22,9 @@
                     <input type="text" class="form-control" name="title" autofocus="autofocus">
                 </div>
 
-                <div>
-                    <a href="{{ route('administration.navigation', $version) }}" class="btn btn-info">Cancel</a>
-                    <input type="submit" class="btn btn-success" value="Create Section">
+                <div class="text-right">
+                    <a href="{{ route('administration.navigation', $version) }}" class="btn btn-danger">Cancel</a>
+                    <input type="submit" class="btn btn-success btn-lg" value="Create Section">
                 </div>
             </form>
 

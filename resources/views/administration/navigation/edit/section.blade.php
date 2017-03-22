@@ -1,13 +1,15 @@
-@extends('layouts.administration')
+@extends('layouts.administration.app', ['section' => 'Editing Navigation Section'])
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Create New Section
-            </h3>
-        </div>
-        <div class="panel-body">
+    <h1>
+        Section
+    </h1>
+    <p class="text-muted">
+        Please edit the section information below before saving.
+    </p>
+
+    <div class="card">
+        <div class="card-block">
 
             <form action="{{ route('administration.navigation.update.section') }}" method="POST" autocomplete="off">
                 {!! csrf_field() !!}
@@ -18,9 +20,9 @@
                     <input type="text" class="form-control" name="title" autofocus="autofocus" value="{{ $navigation->title }}">
                 </div>
 
-                <div>
-                    <a href="{{ route('administration.navigation', $navigation->version_id) }}" class="btn btn-info">Cancel</a>
-                    <input type="submit" class="btn btn-success" value="Create Section">
+                <div class="text-right">
+                    <a href="{{ route('administration.navigation', $navigation->version_id) }}" class="btn btn-danger">Cancel</a>
+                    <input type="submit" class="btn btn-success btn-lg" value="Update Section">
                 </div>
             </form>
 
