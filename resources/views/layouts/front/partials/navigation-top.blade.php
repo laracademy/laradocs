@@ -9,6 +9,7 @@
     </ul>
     <div class="form-inline mt-2 mt-md-0">
       <ul class="navbar-nav mr-auto">
+        @if(auth()->check())
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="fa fa-fw fa-dashboard"></i> Dashboard
@@ -19,6 +20,13 @@
             <i class="fa fa-fw fa-user"></i> My Account
           </a>
         </li>
+        @else
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('auth.login') }}">
+            <i class="fa fa-fw fa-user"></i> Login
+          </a>
+        </li>
+        @endif
       </ul>
     </div>
   </div>

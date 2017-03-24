@@ -58,7 +58,7 @@ class Version extends Model {
 
     public function defaultDocument()
     {
-        return $this->hasOne(\App\Models\Document::class, 'id', 'default_document_id');
+        return $this->hasOne(\App\Models\Document::class, 'id', 'document_id');
     }
 
     // query scopes

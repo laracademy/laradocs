@@ -52,9 +52,10 @@ class VersionController extends Controller
 
         // create the version
         $version = Version::create([
-            'name'   => $request->input('name'),
-            'slug'   => str_slug($request->input('name')),
-            'active' => $request->input('active'),
+            'document_id' => intval($request->input('default_document_id')) != 0 ? intval($request->input('default_document_id')) : null,
+            'name'        => $request->input('name'),
+            'slug'        => str_slug($request->input('name')),
+            'active'      => $request->input('active'),
         ]);
 
         $version->setDefault($request->input('is_default'));
@@ -81,7 +82,7 @@ class VersionController extends Controller
      */
     public function update(Request $request, Version $version)
     {
-        $version->document_id         = intval($request->input('document_id')) != 0 ? intval($request->input('document_id')) : null;
+        $version->document_id         = intval($request->input('default_document_id')) != 0 ? intval($request->input('default_document_id')) : null;
         $version->name                = $request->input('name');
         $version->slug                = str_slug($version->name);
         $version->active              = $request->input('active');

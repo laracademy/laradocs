@@ -18,21 +18,33 @@ class DocumentController extends Controller
      */
     public function __construct()
     {
-        // share all of the active versions on the front page
-        view()->share('active_versions', Version::getActive()->get());
+        // // share all of the active versions on the front page
+        // view()->share('active_versions', Version::getActive()->get());
 
-        // share the theme across all functions
-        $theme = '';
-        $themeSetting = Setting::getSetting('theme');
-        if($themeSetting) {
-            $theme = $themeSetting;
-        }
+        // // share the theme across all functions
+        // $theme = '';
+        // $themeSetting = Setting::getSetting('theme');
+        // if($themeSetting) {
+        //     $theme = $themeSetting;
+        // }
 
-        view()->share('theme', $theme);
+        // view()->share('theme', $theme);
 
-        // share the site name across all functions
-        view()->share('site_name', Setting::getSetting('site_name'));
+        // // share the site name across all functions
+        // view()->share('site_name', Setting::getSetting('site_name'));
     }
+
+
+    /**
+     * the view that shows when no documentation has been found
+     * this should be only a one time thing, hopefully
+     * @return [type] [description]
+     */
+    public function noDocumentation()
+    {
+        return view('front.no-documentation');
+    }
+
 
     /**
      * Show the application dashboard.
@@ -41,20 +53,25 @@ class DocumentController extends Controller
      */
     public function index()
     {
+        // first we need to find out if we have any documentation online
+        $version = $this->getVersion();
+
+        if(! $version) {
+            return redirect()->route('documentation.none');
+        }
+
         // Get current version that has been either assigned
         // or is active and default
         $version = $this->getVersion();
 
+        // this isn't needed
         // Build the navigation for the "current" version
         $navigation = $this->buildNavigation($version);
 
         // Check to see if the current version has a default starting page
-        if($version) {
-            if(Document::where('id', intval($version->default_document_id))->first()) {
-
-                // Redirect to that default starting page
-                return redirect()->route('document.view', [$version->slug, $version->defaultDocument->slug]);
-            }
+        if($version->defaultDocument) {
+            // Redirect to that default starting page
+            return redirect()->route('document.view', [$version->slug, $version->defaultDocument->slug]);
         }
 
         return view('front.start', [
@@ -82,6 +99,10 @@ class DocumentController extends Controller
     {
         // Grab version from Session
         $version = session()->get('version', Version::getDefaultVersion()->first());
+
+        if(! $version) {
+            return null;
+        }
 
         // Check to see if version is still correct
         $version = Version::where('id', $version->id)->first();

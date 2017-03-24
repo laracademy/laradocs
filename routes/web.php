@@ -23,8 +23,13 @@ Route::group(['prefix' => 'auth'], function(){
     Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');
 });
 
+Route::group(['prefix' => 'install', 'namespace' => 'Installation'], function() {
+    Route::get('')->uses('InstallController@index')->name('installation');
+});
+
 Route::group(['prefix' => '', 'namespace' => 'Front'], function(){
     Route::get('')->uses('DocumentController@index')->name('home');
+    Route::get('no-documentation')->uses('DocumentController@noDocumentation')->name('documentation.none');
 
     Route::get('set/{version_slug}')->uses('DocumentController@setVersion')->name('document.set');
     Route::get('{version_slug}')->uses('DocumentController@index')->name('document.view');

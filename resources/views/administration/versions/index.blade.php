@@ -63,7 +63,7 @@
                     <td>
                         <h5>
                             @if($version->document_id)
-                                Installation?
+                                {{ $version->defaultDocument->title }}
                             @else
                                 <i class="fa fa-fw fa-warning fa-lg text-warning"></i> Landing Page not Selected!
                             @endif
