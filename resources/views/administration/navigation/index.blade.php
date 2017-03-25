@@ -75,9 +75,6 @@
             <li class="list-group-item indent">
                 <a href="{{ route('administration.navigation.create.document', $nav_item['id']) }}"><i class="fa fa-plus-circle"></i> Add Existing Document</a>
             </li>
-            <li class="list-group-item indent">
-                <a href="{{ route('administration.documentation.create', [$nav_item['version_id'], $nav_item['id']]) }}"><i class="fa fa-plus-circle"></i> Add New Document</a>
-            </li>
             {{-- DOCUMENTS --}}
         @endforeach
     </ul>
