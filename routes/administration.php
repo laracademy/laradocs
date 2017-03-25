@@ -34,7 +34,7 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Administration'], fu
     });
 
     // DOCUMENTS
-    Route::group(['prefix' => 'documents', 'namespace' => 'documents'], function() {
+    Route::group(['prefix' => 'documents', 'namespace' => 'Documents'], function() {
         Route::get('')->uses('DocumentsController@index')->name('administration.documents');
         Route::get('version/{version}')->uses('DocumentsController@version')->name('administration.documentation.version');
         Route::get('create/{version?}')->uses('DocumentsController@create')->name('administration.documentation.create');

@@ -10,7 +10,7 @@
         <option value="">Please select a default document to display</option>
         @if(isset($documents))
             @foreach($documents as $id => $title)
-                <option value="{{ $id }}" {{ $id == $version->default_document_id ? 'selected' : '' }}>
+                <option value="{{ $id }}" {{ $id == $version->document_id ? 'selected' : '' }}>
                     {{ $title }}
                 </option>
             @endforeach

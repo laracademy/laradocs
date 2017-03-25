@@ -28,8 +28,18 @@ Route::group(['prefix' => 'install', 'namespace' => 'Installation'], function() 
 });
 
 Route::group(['prefix' => '', 'namespace' => 'Front'], function(){
-    Route::get('')->uses('DocumentController@index')->name('home');
-    Route::get('no-documentation')->uses('DocumentController@noDocumentation')->name('documentation.none');
+    Route::get('')->uses('HomeController@index')->name('front.home');
+
+    Route::group(['prefix' => 'errors'], function() {
+        Route::get('no-documentation')->uses('ErrorController@noDocumentation')->name('front.errors.no-documentation');
+        Route::get('no-landing-page')->uses('ErrorController@noLandingPage')->name('front.errors.no-landing-page');
+    });
+
+    Route::group(['prefix' => 'docs'], function() {
+        Route::get('view/{version}/{document}')->uses('DocumentController@view')->name('front.document.view');
+    });
+
+
 
     Route::get('set/{version_slug}')->uses('DocumentController@setVersion')->name('document.set');
     Route::get('{version_slug}')->uses('DocumentController@index')->name('document.view');

@@ -11,6 +11,30 @@ use App\Http\Controllers\Controller;
 
 class DocumentController extends Controller
 {
+    // methods needed
+    // index
+    // view
+
+    public function index()
+    {
+        // check to see if any documentation is installed and active
+        $version = $this->getVersion();
+
+        if(! $version) {
+            return redirect()->route('front.errors.no-documentation');
+        }
+
+        // we have a active and default version, but no landing page
+        if(! $version->defaultDocument) {
+            return redirect()->route('front.errors.no-landing-page');
+        }
+
+        // we have an active, default version with a landing page, so redirect
+        return redirect()->route('front.view', [$version->slug, $version->defaultDocument->slug]);
+    }
+
+
+
     /**
      * Create a new controller instance.
      *
@@ -51,7 +75,7 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index44()
     {
         // first we need to find out if we have any documentation online
         $version = $this->getVersion();
